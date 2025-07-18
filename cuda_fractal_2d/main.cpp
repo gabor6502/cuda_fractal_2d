@@ -3,7 +3,7 @@
 
 int main()
 {
-	printf("Starting CudaFractal2D");
+	printf("-- CudaFractal2D --\n");
 
 	initCUDA();
 	allocCUDA();
@@ -12,6 +12,6 @@ int main()
 	runCUDA();
 	deallocCUDA();
 
-	printf("\nEnd of program\n");
+	printf("\n-- End of program --\n");
 	return 0;
 }

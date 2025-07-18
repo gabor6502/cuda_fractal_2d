@@ -2,6 +2,9 @@
 
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
+
+// warnings for floats being used in cuda/std/complex, just redefine infinity
+#define INFINITY std::numeric_limits<double>::infinity()
 #include <cuda/std/complex>
 
 #include <stdlib.h>
@@ -185,12 +188,12 @@ void allocCUDA()
 
 void runCUDA()
 {
-    const int nThrdX = ceil((float) imageParams.width / (float) deviceParams.max_block_size_x);
-    const int nThrdY = ceil((float) imageParams.height / (float) deviceParams.max_block_size_y);
+    const unsigned int nThrdX = ceil((float) imageParams.width / (float) deviceParams.max_block_size_x);
+    const unsigned int nThrdY = ceil((float) imageParams.height / (float) deviceParams.max_block_size_y);
     dim3 blockDimensions = dim3(nThrdX, nThrdY);
 
-    const int nBlkX = ceil((float) nThrdX / (float)deviceParams.max_grid_size_x);
-    const int nBlkY = ceil((float) nThrdY / (float)deviceParams.max_grid_size_y);
+    const unsigned int nBlkX = ceil((float) nThrdX / (float)deviceParams.max_grid_size_x);
+    const unsigned int nBlkY = ceil((float) nThrdY / (float)deviceParams.max_grid_size_y);
     dim3 gridDimensions = dim3(nBlkX, nBlkY);
 
     complex bottom_left(-1.5, 1.0);

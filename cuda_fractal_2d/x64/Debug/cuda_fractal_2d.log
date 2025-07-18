@@ -1,107 +1,22 @@
 ﻿  Compiling CUDA source file kernel.cu...
   
   C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include"  -G   --keep-dir x64\Debug  -maxrregcount=0    --machine 64 --compile -cudart static  -g  -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /FS /Zi /RTC1 /MDd " -Xcompiler "/Fdx64\Debug\vc143.pdb" -o C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\x64\Debug\kernel.cu.obj "C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu" 
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(607): warning #221-D: floating-point value does not fit in required floating-point type
-          __x = _Tp(((float)(1e+300))) * (__partials.__ac - __partials.__bd);
-                     ^
-  
-  Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(608): warning #221-D: floating-point value does not fit in required floating-point type
-          __y = _Tp(((float)(1e+300))) * (__partials.__ad + __partials.__bc);
-                     ^
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(707): warning #221-D: floating-point value does not fit in required floating-point type
-          __x = ::cuda::std::__4::__constexpr_copysign(_Tp(((float)(1e+300))), __c) * __a;
-                                                            ^
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(708): warning #221-D: floating-point value does not fit in required floating-point type
-          __y = ::cuda::std::__4::__constexpr_copysign(_Tp(((float)(1e+300))), __c) * __b;
-                                                            ^
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(715): warning #221-D: floating-point value does not fit in required floating-point type
-          __x = _Tp(((float)(1e+300))) * (__a * __c + __b * __d);
-                     ^
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(716): warning #221-D: floating-point value does not fit in required floating-point type
-          __y = _Tp(((float)(1e+300))) * (__b * __c - __a * __d);
-                     ^
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(961): warning #221-D: floating-point value does not fit in required floating-point type
-        __r = complex<_Tp>(((float)(1e+300)), __constexpr_copysign(_Tp(0), __c.imag()));
-                            ^
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(1043): warning #221-D: floating-point value does not fit in required floating-point type
-        return complex<_Tp>(_Tp(((float)(1e+300))), __x.imag());
-                                 ^
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(1243): warning #221-D: floating-point value does not fit in required floating-point type
-        return complex<_Tp>(__constexpr_copysign(_Tp(((float)(1e+300))), __x.real()), __constexpr_copysign(_Tp(0), __x.imag()));
-                                                      ^
-  
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(7): warning C4005: 'INFINITY': macro redefinition
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(7): warning C4005: 'INFINITY': macro redefinition
   C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__internal/cpp_dialect.h:43: warning: libcu++ requires at least C++ 17. C++ 14 is deprecated but still supported. C++ 14 support will be removed in a future release. Define CCCL_IGNORE_DEPRECATED_CPP_DIALECT to suppress this message.
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(1043): warning #221-D: floating-point value does not fit in required floating-point type
-        return complex<_Tp>(_Tp(((float)(1e+300))), __x.imag());
-                                 ^
-            detected during:
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::sqrt(const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 1166
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::asinh(const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 281 of C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__complex/nvfp16.h
-  
-  Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(1243): warning #221-D: floating-point value does not fit in required floating-point type
-        return complex<_Tp>(__constexpr_copysign(_Tp(((float)(1e+300))), __x.real()), __constexpr_copysign(_Tp(0), __x.imag()));
-                                                      ^
-            detected during instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::atanh(const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 291 of C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__complex/nvfp16.h
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(707): warning #221-D: floating-point value does not fit in required floating-point type
-          __x = ::cuda::std::__4::__constexpr_copysign(_Tp(((float)(1e+300))), __c) * __a;
-                                                            ^
-            detected during:
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::operator/(const cuda::std::__4::complex<_Tp> &, const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 1245
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::atanh(const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 291 of C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__complex/nvfp16.h
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(708): warning #221-D: floating-point value does not fit in required floating-point type
-          __y = ::cuda::std::__4::__constexpr_copysign(_Tp(((float)(1e+300))), __c) * __b;
-                                                            ^
-            detected during:
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::operator/(const cuda::std::__4::complex<_Tp> &, const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 1245
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::atanh(const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 291 of C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__complex/nvfp16.h
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(715): warning #221-D: floating-point value does not fit in required floating-point type
-          __x = _Tp(((float)(1e+300))) * (__a * __c + __b * __d);
-                     ^
-            detected during:
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::operator/(const cuda::std::__4::complex<_Tp> &, const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 1245
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::atanh(const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 291 of C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__complex/nvfp16.h
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(716): warning #221-D: floating-point value does not fit in required floating-point type
-          __y = _Tp(((float)(1e+300))) * (__b * __c - __a * __d);
-                     ^
-            detected during:
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::operator/(const cuda::std::__4::complex<_Tp> &, const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 1245
-              instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::atanh(const cuda::std::__4::complex<_Tp> &) [with _Tp=float]" at line 291 of C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__complex/nvfp16.h
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(607): warning #221-D: floating-point value does not fit in required floating-point type
-          __x = _Tp(((float)(1e+300))) * (__partials.__ac - __partials.__bd);
-                     ^
-            detected during instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::operator*(const cuda::std::__4::complex<_Tp> &, const cuda::std::__4::complex<_Tp> &) [with _Tp=double]" at line 77 of C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu
-  
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/detail/libcxx/include/complex(608): warning #221-D: floating-point value does not fit in required floating-point type
-          __y = _Tp(((float)(1e+300))) * (__partials.__ad + __partials.__bc);
-                     ^
-            detected during instantiation of "cuda::std::__4::complex<_Tp> cuda::std::__4::operator*(const cuda::std::__4::complex<_Tp> &, const cuda::std::__4::complex<_Tp> &) [with _Tp=double]" at line 77 of C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu
-  
 CUDACOMPILE : nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
   kernel.cu
-  tmpxft_00000f3c_00000000-7_kernel.cudafe1.cpp
+  tmpxft_000030a8_00000000-7_kernel.cudafe1.cpp
   C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__internal/cpp_dialect.h:43: warning: libcu++ requires at least C++ 17. C++ 14 is deprecated but still supported. C++ 14 support will be removed in a future release. Define CCCL_IGNORE_DEPRECATED_CPP_DIALECT to suppress this message.
-C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(188): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(188): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
-C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(189): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(189): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
-C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(192): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(192): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
-C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(193): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(193): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(191): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(191): warning C4244: 'initializing': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(192): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(192): warning C4244: 'initializing': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(195): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(195): warning C4244: 'initializing': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(196): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\kernel.cu(196): warning C4244: 'initializing': conversion from 'float' to 'const unsigned int', possible loss of data
+  main.cpp
+     Creating library C:\Users\elang\source\repos\cuda_fractal_2d\x64\Debug\cuda_fractal_2d.lib and object C:\Users\elang\source\repos\cuda_fractal_2d\x64\Debug\cuda_fractal_2d.exp
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
   cuda_fractal_2d.vcxproj -> C:\Users\elang\source\repos\cuda_fractal_2d\x64\Debug\cuda_fractal_2d.exe
