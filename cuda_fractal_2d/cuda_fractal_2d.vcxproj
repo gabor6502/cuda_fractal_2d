@@ -87,6 +87,7 @@
     <ClCompile Include="graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cudaCheckReturn.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="kernel.h" />
   </ItemGroup>

@@ -1,6 +1,5 @@
 #include "kernel.h"
 #include "graphics.h"
-#include "interopCuGl.h"
 
 #include <stdio.h>
 
@@ -10,39 +9,44 @@ int main()
 {
 	printf("-- %s --\n", APP_NAME);
 
+
+	printf("OpenGL init ... ");
 	GLFWwindow* window = initOpenGL(APP_NAME);
-	
-	// cuda calls in positionn to just run once, testing out to see if everything worked
+	printf("done.\n");
 
 	initCUDA();
+	//initCudaOpenGLInterop(pbo);
 	allocCUDA();
 	setImageSize(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT);
 	setIterations(INIT_ITERATIONS);
 
+	//GLuint pbo = createAndBindPBO();
+
+	// cuda calls in position to just run once, testing out to see if everything worked
+
+
+
+
 	runCUDA();
 	// by now there is data in the GPU ready for opengl to display
 
-	// create and bind to a pixel unpack buffer, this is where we'll put CUDA results and have them "unpacked" to the framebuffer
-	GLuint pbo;
-	glGenBuffers(1, &pbo);
-	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
-	//glBufferData(GL_PIXEL_UNPACK_BUFFER, 0, NULL, GL_STREAM_DRAW); // init with anythign
+
 
 	// - render -
-
+	
 	while (!glfwWindowShouldClose(window))
 	{
-
+		//glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 
-
 	deallocCUDA();
-
-
+	
 	glfwTerminate();
+
+	
 
 	printf("\n-- End of program --\n");
 	return 0;

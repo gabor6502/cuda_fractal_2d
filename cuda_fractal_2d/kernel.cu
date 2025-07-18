@@ -1,7 +1,7 @@
-﻿#include "kernel.h"
-
-#include "cuda_runtime.h"
+﻿#include "cuda_runtime.h"
 #include "device_launch_parameters.h"
+//#include "cuda_gl_interop.h"
+#include "kernel.h"
 
 // warnings for floats being used in cuda/std/complex, just redefine infinity
 #define INFINITY std::numeric_limits<double>::infinity()
@@ -9,7 +9,18 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "cudaCheckReturn.h"
+
+// the standard cuda return checking macro
+#define CUDA_CHECK_RETURN(value)                                     \
+{                                                                    \
+    cudaError_t _m_cudaStat = value;                                 \
+    if ( _m_cudaStat != cudaSuccess)                                 \
+    {                                                                \
+        fprintf(stderr, "Error %s at line %d in file %s\n",          \
+            cudaGetErrorString(_m_cudaStat), __LINE__, __FILE__);    \
+        exit(EXIT_FAILURE);                                          \
+    }                                                                \
+} 
 
 typedef cuda::std::complex<double> complex;
 
@@ -43,6 +54,9 @@ struct DeviceBuffers
 {
     unsigned int * d_dwell_map;
     float * d_image_colours;
+
+    //unsigned int pbo; // hanlde to the pbo GLuint
+    //cudaGraphicsResource** image_resource; // links PBO and device buffer d_image_colours
 };
 DeviceBuffers deviceBuffers;
 
@@ -153,6 +167,25 @@ void initCUDA()
 
     printf("done.\n");
 }
+/*
+void initCudaOpenGLInterop(unsigned int pbo)
+{
+    size_t device_buffer_size = sizeof(unsigned int) * imageParams.width * imageParams.height;
+
+    deviceBuffers.pbo = pbo;
+
+    CUDA_CHECK_RETURN(cudaGLSetGLDevice(DEVICE));
+
+    // register the pbo under the resource given (r/w flag assumed)
+    CUDA_CHECK_RETURN(
+        cudaGraphicsGLRegisterBuffer(deviceBuffers.image_resource, pbo, cudaGraphicsRegisterFlagsNone));
+
+    // map the pbo resource pointer to the device buffer supplied
+    CUDA_CHECK_RETURN(
+        cudaGraphicsResourceGetMappedPointer((void **)deviceBuffers.d_image_colours, 
+                                              &device_buffer_size,
+                                              *deviceBuffers.image_resource));
+}*/
 
 void allocCUDA()
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 /*
- * All exclusively CUDA and fractal related procedures are managed here
+ * All CUDA calls and fractal generation handled here
  */
 
 // maximum magnitude of an element of the mandelbrot set, squared
@@ -19,4 +19,6 @@ void initCUDA();
 void allocCUDA();
 void runCUDA();
 void deallocCUDA();
+
+//void initCudaOpenGLInterop(unsigned int pbo);
 
