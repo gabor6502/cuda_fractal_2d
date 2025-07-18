@@ -11,7 +11,22 @@ int main()
 
 	GLFWwindow* window = initOpenGL(APP_NAME);
 	
-	// render
+	// cuda calls in positionn to just run once, testing out to see if everything worked
+
+	initCUDA();
+	allocCUDA();
+	setImageSize(INIT_WINDOW_WIDTH, INIT_WINDOW_HEIGHT);
+	setIterations(INIT_ITERATIONS);
+
+	runCUDA();
+	// by now there is data in the GPU ready for opengl to display
+
+	// create and bind to a pixel unpack buffer, this is where we'll put CUDA results and have them "unpacked" to the framebuffer
+	GLuint pbo;
+	glGenBuffers(1, &pbo);
+	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
+
+	// - render -
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -21,14 +36,9 @@ int main()
 		glfwPollEvents();
 	}
 
-	/*
-	initCUDA();
-	allocCUDA();
-	setImageSize(800, 800);
-	setIterations(500);
-	runCUDA();
+
 	deallocCUDA();
-	*/
+
 
 	glfwTerminate();
 
