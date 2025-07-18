@@ -1,2 +1,5 @@
 #pragma once
-int runCUDA();
+
+void initCUDA();
+void runCUDA();
+void deallocCUDA();

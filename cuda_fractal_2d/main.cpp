@@ -2,5 +2,11 @@
 
 int main()
 {
-	return runCUDA();
+	initCUDA();
+	
+	runCUDA();
+
+	deallocCUDA();
+
+	return 0;
 }
