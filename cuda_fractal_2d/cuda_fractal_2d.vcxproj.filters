@@ -7,6 +7,9 @@
     <Filter Include="app">
       <UniqueIdentifier>{c0d035a2-1219-4e1d-a417-cb629982868f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="opengl">
+      <UniqueIdentifier>{46dcff7a-db13-45d7-b892-da156bdad1da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu">
@@ -17,10 +20,19 @@
     <ClCompile Include="main.cpp">
       <Filter>app</Filter>
     </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="kernel.h">
       <Filter>cuda</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics.h">
+      <Filter>opengl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
