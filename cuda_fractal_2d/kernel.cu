@@ -9,21 +9,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
-// the standard cuda return checking macro
-#define CUDA_CHECK_RETURN(value)                                     \
-{                                                                    \
-    cudaError_t _m_cudaStat = value;                                 \
-    if ( _m_cudaStat != cudaSuccess)                                 \
-    {                                                                \
-        fprintf(stderr, "Error %s at line %d in file %s\n",          \
-            cudaGetErrorString(_m_cudaStat), __LINE__, __FILE__);    \
-        exit(EXIT_FAILURE);                                          \
-    }                                                                \
-} 
-
-// maximum magnitude of an element of the mandelbrot set, squared
-#define MAX_MAG_SQ 4
+#include "cudaCheckReturn.h"
 
 typedef cuda::std::complex<double> complex;
 
@@ -140,7 +126,6 @@ void setIterations(int iter)
 
 void initCUDA()
 {
-    const int DEVICE = 0; // use the first device available
 
     int deviceCount = 0;
     cudaDeviceProp deviceProp;

@@ -1,5 +1,6 @@
 #include "kernel.h"
 #include "graphics.h"
+#include "interopCuGl.h"
 
 #include <stdio.h>
 
@@ -25,6 +26,7 @@ int main()
 	GLuint pbo;
 	glGenBuffers(1, &pbo);
 	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
+	//glBufferData(GL_PIXEL_UNPACK_BUFFER, 0, NULL, GL_STREAM_DRAW); // init with anythign
 
 	// - render -
 
