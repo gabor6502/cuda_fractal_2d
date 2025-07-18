@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cuda_fractal_2d", "cuda_fractal_2d\cuda_fractal_2d.vcxproj", "{95A7D235-1CA6-936E-311F-E24F3822B4C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95A7D235-1CA6-936E-311F-E24F3822B4C2}.Debug|x64.ActiveCfg = Debug|x64
+		{95A7D235-1CA6-936E-311F-E24F3822B4C2}.Debug|x64.Build.0 = Debug|x64
+		{95A7D235-1CA6-936E-311F-E24F3822B4C2}.Release|x64.ActiveCfg = Release|x64
+		{95A7D235-1CA6-936E-311F-E24F3822B4C2}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3FB1B498-C566-4C9F-B794-5B2C10F85F4D}
+	EndGlobalSection
+EndGlobal
