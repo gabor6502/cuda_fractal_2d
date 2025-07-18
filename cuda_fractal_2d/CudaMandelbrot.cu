@@ -122,13 +122,17 @@ CudaMandelbrot::CudaMandelbrot(int width, int height, int iter, unsigned int pbo
 
     // make sure the hardware is CUDA compatible
     CUDA_CHECK_RETURN(cudaGetDeviceCount(&deviceCount));
-
+    
     if (deviceCount == 0)
     {
         printf("\nCUDA is not supported on this machine!\n");
         exit(EXIT_FAILURE);
     }
     CUDA_CHECK_RETURN(cudaGLSetGLDevice(DEVICE));
+
+    // register the pbo (r/w flag assumed)
+    //printf("\nregistering pbo\n");
+    //CUDA_CHECK_RETURN(cudaGraphicsGLRegisterBuffer(pbo_resource, pbo, cudaGraphicsRegisterFlagsNone));
 
     CUDA_CHECK_RETURN(cudaGetDeviceProperties(&deviceProp, DEVICE));
     max_block_size_x = deviceProp.maxThreadsDim[0];
@@ -173,7 +177,14 @@ void CudaMandelbrot::runCUDA()
 
     k_mandelbrot <<<blockDimensions, gridDimensions>>>(d_dwell_map, iterations, image_width, image_height, bottom_left, top_right);
 
+    // map resource so opengl can render it later
+    //size_t image_colours_size = sizeof(float) * image_width * image_height;
+    //CUDA_CHECK_RETURN(cudaGraphicsResourceGetMappedPointer((void **) d_image_colours, &image_colours_size, *pbo_resource));
+
     k_colour_dwell_map <<<blockDimensions, gridDimensions>>>(d_image_colours, d_dwell_map, iterations, image_width, image_height);
+
+    //CUDA_CHECK_RETURN(cudaGraphicsResourceGetMappedPointer((void**)d_image_colours, &image_colours_size, *pbo_resource));
+   
 
     printf("done!\n");
 }

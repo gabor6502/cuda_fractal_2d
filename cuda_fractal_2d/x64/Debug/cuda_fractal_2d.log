@@ -6,9 +6,9 @@ C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\CudaMandelbrot.cu(10
   C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__internal/cpp_dialect.h:43: warning: libcu++ requires at least C++ 17. C++ 14 is deprecated but still supported. C++ 14 support will be removed in a future release. Define CCCL_IGNORE_DEPRECATED_CPP_DIALECT to suppress this message.
 CUDACOMPILE : nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
   CudaMandelbrot.cu
-  tmpxft_0000515c_00000000-7_CudaMandelbrot.cudafe1.cpp
+  tmpxft_00007c50_00000000-7_CudaMandelbrot.cudafe1.cpp
   C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda/std/__internal/cpp_dialect.h:43: warning: libcu++ requires at least C++ 17. C++ 14 is deprecated but still supported. C++ 14 support will be removed in a future release. Define CCCL_IGNORE_DEPRECATED_CPP_DIALECT to suppress this message.
-C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\CudaMandelbrot.cu(135): warning C4996: 'cudaGLSetGLDevice': was declared deprecated
+C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\CudaMandelbrot.cu(131): warning C4996: 'cudaGLSetGLDevice': was declared deprecated
 C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\CudaMandelbrot.cu(165): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
 C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\CudaMandelbrot.cu(165): warning C4244: 'initializing': conversion from 'float' to 'const unsigned int', possible loss of data
 C:\Users\elang\source\repos\cuda_fractal_2d\cuda_fractal_2d\CudaMandelbrot.cu(166): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data

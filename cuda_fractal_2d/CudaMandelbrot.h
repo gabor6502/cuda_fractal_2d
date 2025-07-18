@@ -9,7 +9,7 @@
 /*
  * All CUDA calls and fractal generation handled here
  */
-
+class cudaGraphicsResource;
 class CudaMandelbrot
 {
 private:
@@ -30,8 +30,10 @@ private:
     unsigned int* d_dwell_map;
     float* d_image_colours;
 
+    cudaGraphicsResource ** pbo_resource;
+
 public:
-    CudaMandelbrot(int image_width, int image_height, int iter, unsigned);
+    CudaMandelbrot(int image_width, int image_height, int iter, unsigned int pbo);
     ~CudaMandelbrot();
 
     void runCUDA();
