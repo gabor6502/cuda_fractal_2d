@@ -1,17 +1,47 @@
 ﻿#include "kernel.h"
+
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
+#include <cuda/std/complex>
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <complex>
 
-struct ImageParams
+// the standard cuda return checking macro
+#define CUDA_CHECK_RETURN(value)                                     \
+{                                                                    \
+    cudaError_t _m_cudaStat = value;                                 \
+    if ( _m_cudaStat != cudaSuccess)                                 \
+    {                                                                \
+        fprintf(stderr, "Error %s at line %d in file %s\n",          \
+            cudaGetErrorString(_m_cudaStat), __LINE__, __FILE__);    \
+        exit(EXIT_FAILURE);                                          \
+    }                                                                \
+} 
+
+// maximum magnitude of an element of the mandelbrot set, squared
+#define MAX_MAG_SQ 4
+
+typedef cuda::std::complex<double> complex;
+
+struct DeviceParams
+{
+    int max_block_size_x;
+    int max_block_size_y;
+
+    int max_grid_size_x;
+    int max_grid_size_y;
+};
+DeviceParams deviceParams;
+
+struct MandelbrotImageParams
 {
     int width;
     int height;
+
+    int iterations;
 };
-ImageParams imageParams;
+MandelbrotImageParams imageParams;
 
 struct HostBuffers
 {
@@ -27,42 +57,8 @@ struct DeviceBuffers
 };
 DeviceBuffers deviceBuffers;
 
-typedef std::complex<double> complex;
-
-// maximum magnitude of an element of the mandelbrot set, squared
-#define MAX_MAG_SQ 4
-
-// the standard cuda return checking macro
-#define CUDA_CHECK_RETURN(value)                                     \
-{                                                                    \
-    cudaError_t _m_cudaStat = value;                                 \
-    if ( _m_cudaStat != cudaSuccess)                                 \
-    {                                                                \
-        fprintf(stderr, "Error %s at line %d in file %s\n",          \
-            cudaGetErrorString(_m_cudaStat), __LINE__, __FILE__);    \
-        exit(EXIT_FAILURE);                                          \
-    }                                                                \
-} 
-
 
 // starting off with basic alg, no DP/mariani-silver yet
-
-__global__ void k_mandelbrot(int * d_dwell_map, int max_iterations,
-                                   int width_dwell_map, int height_dwell_map, 
-                                   complex bottom_left, complex top_right, 
-                                   int pixel_x, int pixel_y)
-{
-    int img_x = threadIdx.x + blockDim.x * blockIdx.x;
-    int img_y = threadIdx.y + blockDim.y * blockIdx.y;
-
-    if (img_x < width_dwell_map && img_y < height_dwell_map)
-    {
-        d_dwell_map[img_y * height_dwell_map + img_x] 
-            = mandelbrot_pixel(max_iterations, width_dwell_map, height_dwell_map, 
-                               bottom_left, top_right, pixel_x, pixel_y);
-    }
-
-}
 
 __device__ int mandelbrot_pixel(int max_iterations,
                                 int width_dwell_map, int height_dwell_map,
@@ -72,11 +68,11 @@ __device__ int mandelbrot_pixel(int max_iterations,
     // convert from image-segment space to mandelbrot space
     complex dist_max_min = top_right - bottom_left;
     complex c = bottom_left + complex((float)pixel_x / (float)width_dwell_map * dist_max_min.real(),
-                                      (float)pixel_y / (float)height_dwell_map * dist_max_min.imag());
+        (float)pixel_y / (float)height_dwell_map * dist_max_min.imag());
     complex z = c; // iterate starting at c
 
     int dwell = 0;
-    while(dwell++ < max_iterations && z.real()*z.real() + z.imag()*z.imag() < MAX_MAG_SQ)
+    while (dwell++ < max_iterations && z.real() * z.real() + z.imag() * z.imag() < MAX_MAG_SQ)
     {
         z = z * z + c;
     }
@@ -84,15 +80,31 @@ __device__ int mandelbrot_pixel(int max_iterations,
     return dwell;
 }
 
+__global__ void k_mandelbrot(unsigned int * d_dwell_map, int max_iterations,
+                                   int width_dwell_map, int height_dwell_map, 
+                                   complex bottom_left, complex top_right)
+{
+    int img_x = threadIdx.x + blockDim.x * blockIdx.x;
+    int img_y = threadIdx.y + blockDim.y * blockIdx.y;
+
+    if (img_x < width_dwell_map && img_y < height_dwell_map)
+    {
+        d_dwell_map[img_y * height_dwell_map + img_x] 
+            = mandelbrot_pixel(max_iterations, width_dwell_map, height_dwell_map, 
+                               bottom_left, top_right, 
+                                img_x, img_y);
+    }
+
+}
+
 // assign colours of the screen from dwell-map
 
-__global__ void k_colour_dwell_map(float * d_pixels, int * d_dwell_map, int max_iterations, int width_dwell_map, int height_dwell_map)
+__global__ void k_colour_dwell_map(float * d_pixels, unsigned int * d_dwell_map, int max_iterations, int width_dwell_map, int height_dwell_map)
 {
     int img_x = threadIdx.x + blockDim.x * blockIdx.x;
     int img_y = threadIdx.y + blockDim.y * blockIdx.y;
 
     int dwell;
-    float w;
 
     if (img_x < width_dwell_map && img_y < height_dwell_map)
     {
@@ -118,12 +130,21 @@ void setImageSize(int w, int h)
     imageParams.height = h;
 }
 
+void setIterations(int iter)
+{
+    imageParams.iterations = iter;
+}
+
 void initCUDA()
 {
+    const int DEVICE = 0; // use the first device available
+
+    int deviceCount = 0;
+    cudaDeviceProp deviceProp;
+
     printf("Initializing CUDA ... ");
 
     // make sure the hardware is CUDA compatible
-    int deviceCount = 0;
     CUDA_CHECK_RETURN(cudaGetDeviceCount(&deviceCount));
 
     if (deviceCount == 0)
@@ -132,7 +153,15 @@ void initCUDA()
         exit(EXIT_FAILURE);
     }
 
-    CUDA_CHECK_RETURN(cudaSetDevice(0)); // use the first device available
+    CUDA_CHECK_RETURN(cudaSetDevice(DEVICE));
+
+    CUDA_CHECK_RETURN(cudaGetDeviceProperties(&deviceProp, DEVICE));
+
+    deviceParams.max_block_size_x = deviceProp.maxThreadsDim[0];
+    deviceParams.max_block_size_y = deviceProp.maxThreadsDim[1];
+
+    deviceParams.max_grid_size_x = deviceProp.maxGridSize[0];
+    deviceParams.max_grid_size_y = deviceProp.maxGridSize[1];
 
     printf("done.\n");
 }
@@ -156,15 +185,36 @@ void allocCUDA()
 
 void runCUDA()
 {
-    
+    const int nThrdX = ceil((float) imageParams.width / (float) deviceParams.max_block_size_x);
+    const int nThrdY = ceil((float) imageParams.height / (float) deviceParams.max_block_size_y);
+    dim3 blockDimensions = dim3(nThrdX, nThrdY);
+
+    const int nBlkX = ceil((float) nThrdX / (float)deviceParams.max_grid_size_x);
+    const int nBlkY = ceil((float) nThrdY / (float)deviceParams.max_grid_size_y);
+    dim3 gridDimensions = dim3(nBlkX, nBlkY);
+
+    complex bottom_left(-1.5, 1.0);
+    complex top_right(0.5, 1.0);
+
+    printf("Executing kernels ... ");
+
+    k_mandelbrot<<<blockDimensions, gridDimensions>>>(deviceBuffers.d_dwell_map, imageParams.iterations, imageParams.width, imageParams.height, bottom_left, top_right);
+
+    k_colour_dwell_map<<<blockDimensions, gridDimensions>>>(deviceBuffers.d_image_colours, deviceBuffers.d_dwell_map, imageParams.iterations, imageParams.width, imageParams.height);
+
+    printf("done!\n");
 }
 
 void deallocCUDA()
 {
+    printf("Deallocating device memory ... ");
     CUDA_CHECK_RETURN(cudaFree((void*) deviceBuffers.d_dwell_map));
     CUDA_CHECK_RETURN(cudaFree((void*) deviceBuffers.d_image_colours));
     CUDA_CHECK_RETURN(cudaDeviceReset());
+    printf("done.\n");
 
+    printf("Deallocating host memory ... ");
     delete[] hostBuffers.h_dwell_map;
     delete[] hostBuffers.h_image_colours;
+    printf("done.\n");
 }
