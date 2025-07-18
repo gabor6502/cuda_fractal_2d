@@ -12,7 +12,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="kernel.cu">
+    <CudaCompile Include="CudaMandelbrot.cu">
       <Filter>cuda</Filter>
     </CudaCompile>
   </ItemGroup>
@@ -23,15 +23,15 @@
     <ClCompile Include="glad.c">
       <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="graphics.cpp">
+    <ClCompile Include="OpenGLMandelbrot.cpp">
       <Filter>opengl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="kernel.h">
+    <ClInclude Include="CudaMandelbrot.h">
       <Filter>cuda</Filter>
     </ClInclude>
-    <ClInclude Include="graphics.h">
+    <ClInclude Include="OpenGLMandelbrot.h">
       <Filter>opengl</Filter>
     </ClInclude>
     <ClInclude Include="cudaCheckReturn.h">
