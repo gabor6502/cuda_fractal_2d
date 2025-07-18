@@ -1,3 +1,6 @@
+C:\dev\glfw-3.4\include\GLFW\glfw3.h
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\winapifamily.h
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\winpackagefamily.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\assert.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\corecrt.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\corecrt_malloc.h
@@ -33,6 +36,7 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\sys\stat.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\sys\types.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\time.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\wchar.h
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\GL\gl.h
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ammintrin.h
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cctype
@@ -372,6 +376,7 @@ C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda\std\__util
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda\std\__utility\swap.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda\__cccl_config
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda_device_runtime_api.h
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda_gl_interop.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda_runtime.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\cuda_runtime_api.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include\device_atomic_functions.h

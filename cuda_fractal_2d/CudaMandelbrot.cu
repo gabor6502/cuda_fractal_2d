@@ -1,6 +1,9 @@
 ﻿#include "cuda_runtime.h"
 #include "device_launch_parameters.h"
-//#include "cuda_gl_interop.h"
+
+#include <GLFW/glfw3.h> // NEEDED for cuda gl to compile
+#include "cuda_gl_interop.h"
+
 #include "CudaMandelbrot.h"
 
 // warnings for floats being used in cuda/std/complex, just redefine infinity
@@ -79,7 +82,7 @@ __global__ void k_colour_dwell_map(float * d_pixels, unsigned int * d_dwell_map,
         if (dwell < max_iterations)
         {
             // temp, just set white tone for now
-            d_pixels[img_y * width_dwell_map + img_x] = (float)dwell / (float)max_iterations;;
+            d_pixels[img_y * width_dwell_map + img_x] = (float)dwell / (float)max_iterations;
         }
         else
         {
@@ -109,13 +112,13 @@ void initCudaOpenGLInterop(unsigned int pbo)
 }*/
 
 
-CudaMandelbrot::CudaMandelbrot(int width, int height, int iter)
+CudaMandelbrot::CudaMandelbrot(int width, int height, int iter, unsigned int pbo)
     : image_width(width), image_height(height), iterations(iter)
 {
     int deviceCount = 0;
     cudaDeviceProp deviceProp;
 
-    printf("Initializing CUDA ... ");
+    printf("Initializing CUDA (+ opengl interop) ... ");
 
     // make sure the hardware is CUDA compatible
     CUDA_CHECK_RETURN(cudaGetDeviceCount(&deviceCount));
@@ -125,8 +128,7 @@ CudaMandelbrot::CudaMandelbrot(int width, int height, int iter)
         printf("\nCUDA is not supported on this machine!\n");
         exit(EXIT_FAILURE);
     }
-
-    CUDA_CHECK_RETURN(cudaSetDevice(DEVICE));
+    CUDA_CHECK_RETURN(cudaGLSetGLDevice(DEVICE));
 
     CUDA_CHECK_RETURN(cudaGetDeviceProperties(&deviceProp, DEVICE));
     max_block_size_x = deviceProp.maxThreadsDim[0];
@@ -149,6 +151,9 @@ CudaMandelbrot::CudaMandelbrot(int width, int height, int iter)
         cudaMalloc((void**) &d_image_colours, sizeof(unsigned int)* image_width* image_height) // black and white, for now
     );
     printf("done.\n");
+
+
+
 }
 
 void CudaMandelbrot::runCUDA()

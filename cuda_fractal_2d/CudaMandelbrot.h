@@ -31,7 +31,7 @@ private:
     float* d_image_colours;
 
 public:
-    CudaMandelbrot(int image_width, int image_height, int iter);
+    CudaMandelbrot(int image_width, int image_height, int iter, unsigned);
     ~CudaMandelbrot();
 
     void runCUDA();
